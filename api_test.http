@@ -1,0 +1,168 @@
+### Test Base APP ****************************************************
+
+### List all wilayas
+GET http://127.0.0.1:8000/api/v1/wilayas/
+Content-Type: application/json
+
+### List all Communes for a wilaya
+GET http://127.0.0.1:8000/api/v1/wilayas/1/communes/
+Content-Type: application/json
+
+### Test Account APP ****************************************************
+
+### Register new user
+POST http://127.0.0.1:8000/api/v1/auth/register/
+Content-Type: application/json
+
+{
+  "email":          "aitemrar.younes@example.com",
+  "phone_number":   "+213660746101",
+  "birth_date":     "1997-06-25",
+  "password":       "myPassword",
+  "password2":      "myPassword"
+}
+
+### Account activation after being registered
+GET http://127.0.0.1:8000/api/v1/auth/activate/?uid=MTI&token=cmaij9-6c655881d9ee6ecb0b61cc16b2d3b48a
+Content-Type: application/json
+
+### Account activation resend
+POST http://127.0.0.1:8000/api/v1/auth/resend-activation/
+Content-Type: application/json
+
+{
+    "email": "aitemrar.younes@example.com",
+    "password": "myPassword"
+}
+
+### Login user
+POST http://127.0.0.1:8000/api/v1/auth/token/
+Content-Type: application/json
+
+{
+    "email": "younes@gmail.com",
+    "password": "root"
+}
+
+### Logout user
+POST http://127.0.0.1:8000/api/v1/logout/
+Content-Type: application/json
+Authorization: Bearer AccessToken
+
+{
+    "refresh": "RefreshToken"
+}
+
+### Password reset request
+POST  http://127.0.0.1:8000/api/v1/auth/password_reset_request/
+Content-Type: application/json
+
+{
+    "email": "aitemrar.younes@gmail.com"
+}
+
+### Password reset
+POST  http://127.0.0.1:8000/api/v1/auth/password_reset/?uid=MTI&token=cmait8-512d58c4680e824c312f5d740b32a064
+Content-Type: application/json
+
+{
+    "email": "aitemrar.younes@gmail.com",
+    "password": "myPassword"
+}
+
+### Password update
+POST  http://127.0.0.1:8000/api/v1/auth/password_update/
+Content-Type: application/json
+Authorization: Bearer accessToken
+               
+{
+    "email": "aitemrar.younes@gmail.com",
+    "password": "myPassword",
+    "new_password": "myNewPassword*"
+}
+
+### Get authenticated user profile
+GET http://127.0.0.1:8000/api/v1/users/me/
+Content-Type: application/json
+Authorization: Bearer AccessToken
+
+###
+{
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MTQ2MzkwOSwiaWF0IjoxNzQxMzc3NTA5LCJqdGkiOiIyMjY5ZjRiNzJiYzA0NjU0YTcyNGMzZTBhZGU5MDYyNiIsInVzZXJfaWQiOjF9.YxdnhdjwXBm9BqP29mXRcSiEpa-Vij-tB4f5OiCEqSg",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzc5MzA5LCJpYXQiOjE3NDEzNzc1MDksImp0aSI6IjcwNGNjZGJkNmNlODRlYjU5MDAzNjUwOTFhY2RhZGMxIiwidXNlcl9pZCI6MX0.E8wJdd1zsFvZ5ach25yIsuXXzSVXtVPTFyuNKF_xq3g"
+}
+
+
+### Test Products APP ****************************************************
+
+### Create new product ( This http extension does not support file upload )
+POST http://127.0.0.1:8000/api/v1/products/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzcwNDg3LCJpYXQiOjE3NDEzNjg2ODcsImp0aSI6IjZmYTlhNjU2NTM4MTQ5MDNiZDYzZjA4MTU4NzYwNmFjIiwidXNlcl9pZCI6MX0.gDxBpdoKB2z4XzPW6jq_p4YFHPLXfBjsPIyUJUuHdD4
+
+{
+    "title": "test",
+    "description": "test",
+    "price": 1000,
+    "category": "Books & Education",
+    "commune": 1
+    //"uploaded_images": [
+    //    "C:\\Users\\potato\\Desktop\\cv exemples\\DSC_o412.jpg"
+    //]
+}
+
+### Update existing product
+PUT http://127.0.0.1:8000/api/v1/products/4/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzcwNDg3LCJpYXQiOjE3NDEzNjg2ODcsImp0aSI6IjZmYTlhNjU2NTM4MTQ5MDNiZDYzZjA4MTU4NzYwNmFjIiwidXNlcl9pZCI6MX0.gDxBpdoKB2z4XzPW6jq_p4YFHPLXfBjsPIyUJUuHdD4
+
+{
+    "title": "test - updated",
+    "description": "test - updated",
+    "price": 9999,
+    "category": "Books & Education",
+    "commune": 100
+    //"uploaded_images": [
+    //    "C:\\Users\\potato\\Desktop\\cv exemples\\DSC_o412.jpg"
+    //]
+}
+
+### Retrieve products with filters
+GET http://127.0.0.1:8000/api/v1/products/?price_min=100&price_max=9999&category=10&wilaya=4
+Content-Type: application/json
+
+
+### Retrieve products for authenticated user
+GET http://127.0.0.1:8000/api/v1/products/1/user/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzc5MzA5LCJpYXQiOjE3NDEzNzc1MDksImp0aSI6IjcwNGNjZGJkNmNlODRlYjU5MDAzNjUwOTFhY2RhZGMxIiwidXNlcl9pZCI6MX0.E8wJdd1zsFvZ5ach25yIsuXXzSVXtVPTFyuNKF_xq3g
+
+### Retrieve saved products for authenticated user
+GET http://127.0.0.1:8000/api/v1/products/user_saved/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzc5MzA5LCJpYXQiOjE3NDEzNzc1MDksImp0aSI6IjcwNGNjZGJkNmNlODRlYjU5MDAzNjUwOTFhY2RhZGMxIiwidXNlcl9pZCI6MX0.E8wJdd1zsFvZ5ach25yIsuXXzSVXtVPTFyuNKF_xq3g
+
+### unsaved product for authenticated user
+POST http://127.0.0.1:8000/api/v1/products/4/save/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzc5MzA5LCJpYXQiOjE3NDEzNzc1MDksImp0aSI6IjcwNGNjZGJkNmNlODRlYjU5MDAzNjUwOTFhY2RhZGMxIiwidXNlcl9pZCI6MX0.E8wJdd1zsFvZ5ach25yIsuXXzSVXtVPTFyuNKF_xq3g
+
+### unsaved product for authenticated user
+DELETE http://127.0.0.1:8000/api/v1/products/4/unsave/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMzc5MzA5LCJpYXQiOjE3NDEzNzc1MDksImp0aSI6IjcwNGNjZGJkNmNlODRlYjU5MDAzNjUwOTFhY2RhZGMxIiwidXNlcl9pZCI6MX0.E8wJdd1zsFvZ5ach25yIsuXXzSVXtVPTFyuNKF_xq3g
+
+### Create new category
+GET http://127.0.0.1:8000/api/v1/categories/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzI4NjMyLCJpYXQiOjE3NDAzMjY4MzIsImp0aSI6IjA4MDIzZjA3ZGZiZDQwZjM4YWNjMDEzMmJmZmM2Njg3IiwidXNlcl9pZCI6MX0.VU4CcVG9zIuLirhnbd2p8VCXMeSAY97jUTwfYH12-d0
+
+{
+    "name": "test to delete"
+}
+
+### Delete craeted category
+DELETE  http://127.0.0.1:8000/api/v1/categories/13/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzI1OTM5LCJpYXQiOjE3NDAzMjU2MzksImp0aSI6IjBjODczMDJmMWIzYjQ1NjU4MzgzODYyZjM0N2E0NWRkIiwidXNlcl9pZCI6MX0.ARLl2Ht3UyM-tKKNbcyledvn3Hsjv4bCUywi-8bas0I
+

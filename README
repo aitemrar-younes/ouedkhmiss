@@ -1,0 +1,128 @@
+# Product Management API
+
+A Django Rest Framework (DRF) API for managing products, categories, and user authentication.
+
+## Features
+
+- **User Authentication**
+  - Register
+  - Login
+  - Token-based Authentication
+  - Email Confirmation
+  - Password Reset via Email
+  - Password Update
+- **Product Management (CRUD)**
+- **Filtering & Ordering** (by price, category, commune, wilaya)
+- **Image Upload** for products
+- **Product Save & Unsave**
+- **Retrieve Saved Products**
+- **Retrieve User Products**
+- **Role-Based Permissions**
+
+---
+
+## Installation
+
+### 1️⃣ Clone the repository
+
+```sh
+git clone https://github.com/aitemrar-younes/ouedkhmiss.git
+cd ouedkhmiss/backend
+```
+
+### 2️⃣ Create and activate a virtual environment
+
+```sh
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### 3️⃣ Install dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+### 4️⃣ Create a `.env` file and set environment variables
+
+Inside the `backend/` directory, create a `.env` file and add the following:
+
+```ini
+SECRET_KEY=your_secret_key_here
+DEBUG=True  # Set to False in production
+EMAIL_HOST_USER=your_email@example.com
+EMAIL_HOST_PASSWORD=your_email_password
+```
+
+> ⚠️ **Note:** Never share your `.env` file or push it to version control. Add it to `.gitignore`.
+
+### 5️⃣ Apply database migrations
+
+```sh
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 6️⃣ Testing API Endpoints
+
+To test all API endpoints, open the `api_test.http` file in VS Code.
+
+> ✅ **Tip:** Install the **REST Client** extension in VS Code for better API testing experience.
+
+---
+
+## API Endpoints
+
+### 🔹 Authentication
+
+| Method | Endpoint                  | Description |
+|--------|---------------------------|-------------|
+| POST   | `/api/v1/auth/register/`     | Register a new user |
+| POST   | `/api/v1/auth/login/`        | Authenticate and get a token |
+| POST   | `/api/v1/auth/logout/`       | Logout and invalidate token |
+| POST   | `/api/v1/auth/password_reset_request/` | Request password reset |
+| POST   | `/api/v1/auth/password_reset/` | password reset |
+| POST   | `/api/v1/auth/password_update/` | Update password |
+| GET    | `/api/v1/auth/activate/` | Confirm email address |
+
+### 🔹 Product Management
+
+| Method | Endpoint                  | Description |
+|--------|---------------------------|-------------|
+| GET    | `/api/products/`          | List all products |
+| POST   | `/api/products/`          | Create a new product |
+| GET    | `/api/products/{id}/`     | Retrieve product details |
+| PUT    | `/api/products/{id}/`     | Update a product |
+| DELETE | `/api/products/{id}/`     | Delete a product |
+
+### 🔹 Product Features
+
+| Method | Endpoint                                | Description |
+|--------|-----------------------------------------|-------------|
+| GET    | `/api/products/saved/`                 | Get all saved products for a user |
+| POST   | `/api/products/{id}/save/`             | Save a product |
+| DELETE | `/api/products/{id}/unsave/`           | Unsave a product |
+| GET    | `/api/products/{user_id}/user/`        | Get all products of a specific user |
+
+### 🔹 Filtering & Ordering
+
+| Method | Endpoint                            | Description |
+|--------|-------------------------------------|-------------|
+| GET    | `/api/products/?category={id}`     | Filter products by category |
+| GET    | `/api/products/?price_min={value}` | Filter products by minimum price |
+| GET    | `/api/products/?price_max={value}` | Filter products by maximum price |
+| GET    | `/api/products/?commune={id}`      | Filter products by commune |
+| GET    | `/api/products/?wilaya={id}`       | Filter products by wilaya |
+| GET    | `/api/products/?ordering=price`    | Order products by price (ascending) |
+| GET    | `/api/products/?ordering=-price`   | Order products by price (descending) |
+
+---
+
+## License
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## Contributors
+Developed by **Younes Abdenacer AITEMRAR** 🚀
+
