@@ -33,9 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost",])
 
 # Application definition
 
@@ -101,15 +99,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_name',                      
-        'USER': 'db_user',
-        'PASSWORD': 'db_user_password',
-        'HOST': '',
-        'PORT': 'db_port_number',
-    }} """
+        'NAME': env("NAME"),                      
+        'USER': env("USER"),
+        'PASSWORD': env("PASSWORD"),
+        'HOST': env("HOST"),
+        'PORT': env("PORT"),
+    }
+}
 
 
 # Password validation
